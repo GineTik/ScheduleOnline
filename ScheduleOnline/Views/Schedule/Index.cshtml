@@ -1,0 +1,132 @@
+<div class="main__header">
+    <div class="editable-field title main__editable-field" contenteditable="">Назва проєкта</div>
+    <div class="btn-group">
+        <div class="btn btn-danger">поскаржитись</div>
+        <div class="btn btn-secondary">викл. коментарі</div>
+    </div>
+    <div class="share">
+        <a href="#" class="link share__link">https://www.google.com/</a>
+        <div class="btn btn-secondary share__btn">копіювати</div>
+    </div>
+</div>
+
+
+<div class="days">
+@for(int i = 0; i < 3; i++)
+{
+    <table class="day table">
+        <tr class="table__title">
+            <td class="table__col" colspan="2">
+                <div class="table__editable-field editable-field">Понеділок</div>
+                <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+            </td>
+        </tr>
+        <tr class="table__row">
+            <td class="table__col">
+                <span class="table__editable-field editable-field" contenteditable>урок 1</span>
+                <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+            </td>
+            <td class="table__col">
+                з <span class="table__editable-field editable-field">10:00</span>
+                до <span class="table__editable-field editable-field">11:20</span>
+            </td>
+        </tr>
+
+        <tr class="table__row">
+            <td class="table__col">
+                <span class="table__editable-field editable-field">урок 2</span>
+                <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+            </td>
+            <td class="table__col">
+                з <span class="table__editable-field editable-field">11:35</span>
+                до <span class="table__editable-field editable-field">12:50</span>
+            </td>
+        </tr>
+
+        <tr class="table__row">
+            <td class="table__col">
+                <span class="table__editable-field editable-field">урок 3</span>
+                <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+            </td>
+            <td class="table__col">
+                з <span class="table__editable-field editable-field">13:10</span>
+                до <span class="table__editable-field editable-field">14:30</span>
+            </td>
+        </tr>
+
+        <tr class="table__row">
+            <td class="table__col">
+                <span class="table__editable-field editable-field">останій урок</span>
+                <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+            </td>
+            <td class="table__col">
+                з <span class="table__editable-field editable-field">14:40</span>
+                до <span class="table__editable-field editable-field">16:00</span>
+            </td>
+        </tr>
+
+        <tr class="table__row">
+            <td class="table__col table__btn btn" colspan="2">
+                додати новий рядок
+            </td>
+        </tr>
+    </table>
+}
+</div>
+
+<div class="about">
+    <h1 class="title text-secondary about__title">Опис</h1>
+    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu nisi a velit tempor porttitor eu et mi. Aenean tellus velit, commodo nec malesuada ut, placerat eget mi. Maecenas vestibulum nisi quis purus auctor fringilla. Nullam sodales risus porta, finibus felis cursus, vulputate justo. Pellentesque id egestas augue, quis accumsan odio. Nullam ornare tortor id tempor accumsan. Nam vel leo ipsum. Fusce ligula nisl, accumsan quis blandit vel, finibus at nunc. Nulla nec dolor ut urna eleifend semper. Mauris ipsum massa, semper vitae venenatis sed, dapibus at neque. Duis posuere ligula at odio hendrerit elementum. Curabitur nec urna nunc. In hac habitasse platea dictumst. Aenean id risus rutrum, bibendum nulla a, aliquet arcu.</p>
+</div>
+
+<div class="comments">
+    <h1 class="title text-secondary comments__title">Коментарі</h1>
+    <textarea rows="10" class="input" placeholder="пишіть..."></textarea>
+    <button class="btn btn-primary">прокоментувати</button>
+
+    <div class="comments__inner">
+        @for(int i = 0; i < 5; i++) 
+        {
+            <div class="comments__item comment">
+                <ion-icon class="comment__attach" name="attach-outline"></ion-icon>
+                <div class="comment__content">
+                    <div class="comment__header">
+                        <a href="#" class="comment__author link text-primary">Ім’я користувача</a>
+                        <div class="comment__date">28.07.2022</div>
+                    </div>
+                    <p class="text">Коментарь користувача</p>
+                    <div class="reviews">
+                        <div class="reviews__item">
+                            <ion-icon name="thumbs-up-sharp"></ion-icon>
+                            <span class="reviews__num">5</span>
+                        </div>
+                        <div class="reviews__item">
+                            <ion-icon name="thumbs-up-sharp"></ion-icon>
+                            <span class="reviews__num">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment__btns btn-group">
+                    <div class="btn btn-secondary">редагувати</div>
+                    <div class="btn btn-secondary">видалити</div>
+                    <div class="btn btn-secondary">закріпити</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script type="module">
+        import { LessonService } from "./js/Services/LessonService.js";
+
+        var lessons = new LessonService("@Url.Action("action", "controller")");
+        $(".table__btn").click(function() {
+            lessons.add(this.parentNode, "hjklasfdhjkasdflajshlf")
+        });
+    </script>
+}

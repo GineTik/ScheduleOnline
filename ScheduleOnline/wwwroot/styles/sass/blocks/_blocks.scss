@@ -1,0 +1,15 @@
+.container {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0 auto;
+}
+
+@import "header/header";
+@import "navbar/navbar";
+@import "form/form";
+@import "main/main";
+@import "share/share";
+@import "table/table";
+@import "schedule/schedule";
+@import "list/list";

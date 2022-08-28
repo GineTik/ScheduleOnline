@@ -1,0 +1,33 @@
+.list {
+    &__item {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        
+        width: 100%;
+        
+        border-top: 3px solid $secondary;
+        padding: 12px;
+
+        &:last-child {
+            border-bottom: 3px solid $secondary;
+        }
+
+        & > *:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+
+    &__item-left {
+        margin-left: auto;
+    }
+
+    &__wrapper {
+        width: 780px;
+        margin: 0 auto;
+    }
+
+    &__data {
+        margin-left: 60px;
+    }
+}

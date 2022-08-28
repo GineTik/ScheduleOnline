@@ -1,0 +1,28 @@
+@model List<ScheduleListItem>
+
+<div class="schedules">
+    <div class="main__header">
+        <h1 class="title">Мої розклади</h1>
+    </div>
+    <div class="list">
+        @if (Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="list__item">
+                    <a asp-action="Index" asp-route-id="@item.Id"><h3 class="title link-dark">@item.Title</h3></a>
+                    <div class="btn-group list__item-left">
+                        <div class="btn btn-secondary">видалити</div>
+                    </div>
+                </div>
+            }            
+        }
+        else
+        {
+            <span>упс... у вас немає жодного розкладу</span>
+        }
+    </div>
+    <div class="schedules__btn">
+        <a asp-action="Add" class="btn btn-primary">додати новий розклад</a>
+    </div>
+</div>

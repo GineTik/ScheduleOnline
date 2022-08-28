@@ -1,0 +1,13 @@
+$primary: #77CDA4;
+$secondary: #E6E6E6;
+$link: #267DFF;
+$danger: #F66F6F;
+$light: #fff;
+$dark: #000;
+
+$primary-light: lighten($primary, 25%);
+$secondary-light: lighten($secondary, 25%);
+$link-light: lighten($link, 25%);
+$danger-light: lighten($danger, 25%);
+$light-light: lighten($light, 25%);
+$dark-light: lighten($dark, 60%);

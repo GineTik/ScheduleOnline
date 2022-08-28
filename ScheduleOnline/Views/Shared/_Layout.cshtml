@@ -1,0 +1,65 @@
+@inject OnlineSchedule.BusinessLogic.Authenticate.Authenticator _authenticator
+@inject OnlineSchedule.BusinessLogic.Services.UserService _userService
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlineSchedule - @ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/styles/css/style.min.css">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header class="header container">
+        <a class="logo" href="~/">
+            <h3 class="title">Schedule<br>Online</h3>
+        </a>
+        <nav class="navbar header__navbar">
+            <a asp-controller="Home" asp-action="Index" class="navbar__item navbar__item--active">Головна</a>
+            
+            @if (_userService.GetUser(Context.User) != null)
+            {
+                <a asp-controller="Schedule" asp-action="All" class="navbar__item">Мої розклади</a>
+            }
+
+            @if (_userService.ExistsRole(Context.User, "Moderator, Admin"))
+            {
+                <a asp-controller="Moderator" asp-action="Index" class="navbar__item">Для модератора</a>
+            }
+
+            @if (_userService.ExistsRole(Context.User, "Admin"))
+            {
+                <a asp-controller="Admin" asp-action="Index" class="navbar__item">Для адміністратора</a>
+            }
+        </nav>
+        <div class="account btn-group header__account">
+
+            @if (_authenticator.IsAuthorized(Context.User) == false)
+            {
+                <a asp-controller="Auth" asp-action="Login" class="btn btn-secondary">вхід</a>
+                <a asp-controller="Auth" asp-action="Registration" class="btn btn-primary">реєстрація</a>
+            }
+            else
+            {
+                <div class="btn btn-primary">@Context.User.Identity.Name</div>
+                <a asp-controller="Auth" asp-action="Logout" class="btn btn-secondary">вихід</a>
+            }
+        </div>
+    </header>
+
+    <main class="main container">
+        @RenderBody()
+    </main>
+
+    @*Jquery*@
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

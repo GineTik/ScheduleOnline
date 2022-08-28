@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+.header__navbar {
+    margin-left: 110px;
+}
+
+.header__account {
+    margin-left: auto;
+}

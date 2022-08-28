@@ -1,0 +1,52 @@
+﻿<div class="list__wrapper">
+    <div class="main__header">
+        <h1 class="title">Історія розкладів</h1>
+    </div>
+    
+    <div class="list">
+        @for(int i = 0; i < 5; i++)
+        {
+            <div class="list__item">
+                <div>
+                    почта користувача <br>
+                    почта виконавця <br>
+                    дата видалення <br>
+                    роль виконавця <br>
+                    тип дії <br>
+                </div>
+                <div class="list__data">
+                    destroer06@gmail.com <br>
+                    densheva18072003@gmail.com <br>
+                    28.07.2022 <br>
+                    адміністратор <br>
+                    видалення <br>
+                </div>
+                <div class="btn-group list__item-left">
+                    <div class="btn btn-secondary">відновити</div>
+                </div>
+            </div>
+        }
+
+        @for(int i = 0; i < 5; i++)
+        {
+            <div class="list__item">
+                <div>
+                    назва розкладу <br>
+                    почта виконавця <br>
+                    дата видалення <br>
+                    роль виконавця <br>
+                    тип дії <br>
+                </div>
+                <div class="list__data">
+                    якась назва розкладу <br>
+                    densheva18072003@gmail.com <br>
+                    28.07.2022 <br>
+                    додавання <br>
+                </div>
+                <div class="btn-group list__item-left">
+                    <div class="btn btn-secondary">видалити</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

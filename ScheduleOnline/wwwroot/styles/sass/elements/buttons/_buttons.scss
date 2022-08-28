@@ -1,0 +1,59 @@
+.btn {
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: 0;
+    font-size: 1rem;
+    white-space: nowrap;
+
+    cursor: pointer;
+    transition: .15s filter;
+
+
+    &:hover {
+        filter: brightness(95%);
+    }
+
+
+    &-primary {
+        background-color: $primary;
+        color: $light;
+    }
+
+    &-secondary {
+        background-color: $light;
+        box-shadow: 0px 0px 0px 3px $secondary inset;
+        color: $dark;
+        background-color: $light;
+    }
+
+    &-danger {
+        background-color: $danger-light;
+        box-shadow: 0px 0px 0px 3px $danger inset;
+        color: $dark;
+    }
+
+
+    &-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > .btn:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
+    &-icon {
+        color: $dark;
+        cursor: pointer;
+        transition: .15s color;
+
+        &:hover {
+            color: $dark-light;
+        }
+
+        &__active, &:active {
+            color: $primary !important;
+        }
+    }
+}

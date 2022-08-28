@@ -1,0 +1,34 @@
+@using ScheduleOnline.Presentation.ViewModels.Authorization
+@model RegistrationViewModel
+
+<form action="Registration" method="post" class="form">
+    <h1 class="title">Реєстрація</h1>
+    
+    <div class="input-group">
+        <input asp-for="Email" type="text" class="input" placeholder="почта">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="input-group">
+        <input asp-for="Name" type="text" class="input" placeholder="ім’я користувача">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="input-group">
+        <input asp-for="Password" type="text" class="input" placeholder="пароль">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="input-group">
+        <input asp-for="ConfirmPassword" type="text" class="input" placeholder="повторіть пароль">
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <div class="input-row">
+        <input asp-for="RememberMe" type="checkbox" class="checkbox" id="rememberMe">
+        <label asp-for="RememberMe" class="label" for="rememberMe">запам'ятати мене</label>
+    </div>
+    <button class="btn btn-primary">зареєструватись</button>
+
+    <div asp-validation-summary="ModelOnly" class="form__errors"></div>
+</form>

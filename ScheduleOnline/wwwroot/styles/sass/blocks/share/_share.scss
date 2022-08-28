@@ -1,0 +1,12 @@
+.share {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto;
+
+    &__link {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+}

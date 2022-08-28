@@ -1,0 +1,39 @@
+.text {
+    line-height: 150%;
+    
+    &-secondary {
+        color: $secondary !important;
+    }
+
+    &-primary {
+        color: $primary !important;
+    }
+
+    &-danger {
+        color: $danger !important;
+    }
+}
+
+.editable-field {
+    border-radius: 20.5px;
+    padding: 8px 16px;
+
+    outline: 0;
+    z-index: 0;
+    position: relative;
+
+    &:hover {
+        box-shadow: 0 0 0 3px $secondary inset;
+        background-color: $light;
+        z-index: 1;
+    }
+    
+    &:focus {
+        box-shadow: 0 0 0 3px $primary inset;
+        background-color: $light;
+        z-index: 1;
+    }
+}
+
+@import "link";
+@import "title";

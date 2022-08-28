@@ -1,0 +1,25 @@
+@model AddScheduleViewModel
+
+<form action="Add" method="post" class="form">
+    <h1 class="title">Новий розклад</h1>
+    <div class="input-group">
+        <input asp-for="Title" type="text" class="input" placeholder="назва">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="input-group">
+        <textarea asp-for="About" rows="5" class="input" placeholder="опис"></textarea>
+        <span asp-validation-for="About" class="text-danger"></span>
+    </div>
+
+    <div class="input-row">
+        <input asp-for="AllowComments" type="checkbox" class="checkbox">
+        <label asp-for="AllowComments">дозволити коментарі</label>
+    </div>
+
+    <button class="btn btn-primary">створити</button>
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    @*<div class="form__error">якась помилка при створенні розкладу</div>*@
+</form>

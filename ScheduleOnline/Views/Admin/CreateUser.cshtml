@@ -1,0 +1,36 @@
+@using Microsoft.AspNetCore.Identity;
+
+@model OnlineSchedule.Presentation.ViewModels.CreateUserViewModel
+@inject RoleManager<IdentityRole> _roleManager
+
+<form action="CreateUser" method="post" class="form">
+    <h1 class="title">Створити користувача</h1>
+    
+    <div class="input-group">
+        <input asp-for="Email" type="text" class="input" placeholder="почта">
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div class="input-group">
+        <input asp-for="Name" type="text" class="input" placeholder="ім'я користувача">
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div class="input-group">
+        <input asp-for="Password" type="text" class="input" placeholder="пароль">
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div class="input-group">
+        <input asp-for="ConfirmPassword" type="text" class="input" placeholder="повторіть пароль">
+        <span asp-validation-for="ConfirmPassword"></span>
+    </div>
+
+    <select asp-for="Role" asp-items="new SelectList(_roleManager.Roles)" class="input"></select>
+
+    <button class="btn btn-primary">створити</button>
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    @*<div class="form__error">якась помилка при створенні користувача</div>*@
+</form>

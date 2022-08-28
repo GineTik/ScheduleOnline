@@ -1,0 +1,30 @@
+.form {
+    width: 300px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    & > * {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    &__errors li {
+        list-style: none;
+        padding: 8px 16px;
+        margin-bottom: 5px;
+
+        font-size: 1rem;
+        line-height: 1.1;
+
+        border: 3px solid $danger;
+        border-radius: 9px;
+        background-color: $danger-light;
+    }
+}
+
+@import "input";

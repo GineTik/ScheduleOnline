@@ -1,0 +1,36 @@
+﻿<div class="list__wrapper">
+    <div class="main__header">
+        <h1 class="title">Історія аккаунтів</h1>
+    </div>
+    
+    <div class="list">
+        @foreach (var item in Model)
+        {
+            <div class="list__item">
+                <div>
+                    почта користувача <br>
+                    почта виконавця <br>
+                    дата видалення <br>
+                    роль виконавця <br>
+                    тип дії <br>
+                </div>
+                <div class="list__data">
+                    @item.UserEmail <br>
+                    @item.PerformerEmail <br>
+                    @item.DateOfAction <br>
+                    @item.PerformerRole <br>
+                    @item.TypeOfAction
+
+                    @*destroer06@gmail.com <br>
+                    densheva18072003@gmail.com <br>
+                    28.07.2022 <br>
+                    адміністратор <br>
+                    видалення <br>*@
+                </div>
+                <div class="btn-group list__item-left">
+                    <div class="btn btn-secondary">відновити</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

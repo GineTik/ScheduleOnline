@@ -1,0 +1,19 @@
+<div class="list__wrapper">
+    <div class="main__header">
+        <h1 class="title">Скарги</h1>
+    </div>
+    
+    <div class="list">
+        @for(int i = 0; i < 5; i++)
+        {
+            <div class="list__item">
+                <a asp-controller="Schedule" asp-action="Index" target="_blank"><h3 class="title link-dark">Назва розкладу</h3></a>
+                <span class="list__item-left">скарг: <span class="text-danger">70</span></span>
+                <div class="btn-group">
+                    <div class="btn btn-secondary">залишити</div>
+                    <div class="btn btn-secondary">видалити</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

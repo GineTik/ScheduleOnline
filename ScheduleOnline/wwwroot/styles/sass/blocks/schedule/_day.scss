@@ -1,0 +1,10 @@
+.days {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.day {
+    margin: 0 30px 30px 0;
+}

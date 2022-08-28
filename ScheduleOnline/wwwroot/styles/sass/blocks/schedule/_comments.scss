@@ -1,0 +1,91 @@
+.comments {
+    &__title {
+        margin-bottom: 12px;
+    }
+
+    &__inner {
+        margin-top: 50px;
+    }
+
+    &__item {
+        margin-bottom: 24px;
+    }
+}
+
+.comment {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    margin-left: 20px;
+
+    &__attach {
+        font-size: 2rem;
+        color: $dark-light;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+
+        margin-bottom: 4px;
+    }
+
+    &__date {
+        margin-left: 14px;
+        color: $dark-light;
+    }
+
+    &__content {
+        margin-right: 50px;
+    }
+
+    &__btns {
+        opacity: 0;
+        transition: .15s opacity;
+    }
+
+    &:hover {
+         .comment__btns {
+            opacity: 1;
+        }
+    }
+}
+
+.reviews {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    margin-top: 6px;
+    margin-left: 3px;
+
+    &__num {
+        padding: 0 12px 0 6px;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+
+        & ion-icon, & .reviews__num {
+            transition: .15s color;
+        }
+
+        &:hover {
+            & ion-icon, & .reviews__num {
+                color: $dark-light;
+            }
+        }
+
+        &__active, &:active {
+            & ion-icon, & .reviews__num {
+                color: $primary;
+            }
+        }
+    }
+}

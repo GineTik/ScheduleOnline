@@ -1,0 +1,40 @@
+@model IEnumerable<OnlineSchedule.Presentation.ViewModels.UserShortDataViewModel>
+
+<div class="list__wrapper">
+    <input type="text" class="input input-search input--hide" placeholder="пошук">
+    <div class="main__header">
+        <h1 class="title">Користувачі</h1>
+        <div class="btn-group">
+            <div class="btn btn-secondary search">пошук</div>
+            <a asp-action="CreateUser" class="btn btn-secondary">створити користувача</a>
+        </div>
+    </div>
+    
+    <div class="list">
+        @foreach(var user in Model)
+        {
+            <div class="list__item">
+                <div>
+                    ім’я користувача <br>
+                    почта <br>
+                    дата реєстрація <br>
+                    роль <br>
+                </div>
+                <div class="list__data">
+                    @user.Name <br>
+                    @user.Email <br>
+                    @user.DateOfRegistration <br>
+                    @user.Role <br>
+
+                    @*GineTik <br>
+                    densheva18072003@gmail.com <br>
+                    28.07.2022 <br>
+                    адміністратор <br>*@
+                </div>
+                <div class="btn-group list__item-left">
+                    <div class="btn btn-secondary">видалити</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

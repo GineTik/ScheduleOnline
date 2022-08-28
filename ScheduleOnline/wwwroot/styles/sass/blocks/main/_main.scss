@@ -1,0 +1,26 @@
+
+.main {
+    &__header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    
+        margin-bottom: 60px;
+
+        & > *:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+    
+    &__editable-field {
+        margin-right: 15px;
+    }
+
+    & > * {
+        margin-bottom: 60px !important;
+    }
+
+    &__title {
+        margin-bottom: 40px;
+    }
+}

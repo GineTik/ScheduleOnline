@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__item {
+        color: $dark;
+        font-size: 1rem;
+        padding: 10px;
+        
+        position: relative;
+        cursor: pointer;
+        transition: .15s color;
+
+        &:hover {
+            color: $dark-light;
+        }
+
+        &.navbar__item--active::after {
+            content: "";
+        
+            position: absolute;
+            left: 10px;
+            bottom: 3px;
+        
+            width: calc(100% - 20px);
+            height: 3px;
+            background-color: $primary;
+        }
+    }
+}
