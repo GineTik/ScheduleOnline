@@ -2,15 +2,27 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineSchedule.BusinessLogic.Mappers;
+using ScheduleOnline.BusinessLogic.Services;
+
 namespace OnlineSchedule.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     public class AdminController : Controller 
     {
+        private readonly UserService _userService;
+        private readonly Mapper _mapper;
+
+        public AdminController(UserService userService, Mapper mapper)
+        {
+            _userService = userService;
+            _mapper = mapper;
+        }
+
         public IActionResult Index()
         {
-
+            var users = _userService.GetAllUsers();
+            var models = _mapper.Map<List<>>(users);
+            return View(models);
         }
 
         public IActionResult CreateUser()

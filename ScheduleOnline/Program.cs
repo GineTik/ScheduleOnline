@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ScheduleOnline.BusinessLogic.Authorization;
+using ScheduleOnline.BusinessLogic.Mapper;
+using ScheduleOnline.BusinessLogic.Services;
 using ScheduleOnline.Data.EF;
 using ScheduleOnline.Data.Entities;
 
@@ -20,6 +23,11 @@ builder.Services.AddIdentity<User, Role>(options =>
     }).AddEntityFrameworkStores<ScheduleContext>();
 
 builder.Services.AddMvc();
+
+builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<Authorizator>();
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+
 
 // =====================
 

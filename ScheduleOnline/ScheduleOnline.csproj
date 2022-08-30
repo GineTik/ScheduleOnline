@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ScheduleOnline.BusinessLogic\ScheduleOnline.BusinessLogic.csproj" />
     <ProjectReference Include="..\ScheduleOnline.Data\ScheduleOnline.Data.csproj" />
     <ProjectReference Include="..\ScheduleOnline.Presentation\ScheduleOnline.Presentation.csproj" />
   </ItemGroup>

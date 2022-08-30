@@ -1,35 +1,32 @@
 ﻿using ScheduleOnline.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using ScheduleOnline.BusinessLogic.Services;
 
 namespace ScheduleOnline.BusinessLogic.Authorization
 {
     public class Authorizator
     {
-        private readonly UserManager<User> _userManager;
-        private readonly RoleManager<Role> _roleManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserService _userService;
 
-        public Authorizator(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+        public Authorizator(UserService userService)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _signInManager = signInManager;
+            _userService = userService;
         }
 
         public SignInResult TryLogin(User user, string password, bool rememberMe)
         {
-            return _signInManager.PasswordSignInAsync(user, password, rememberMe, false).GetAwaiter().GetResult();
+            return _userService.LoginWithPassword(user, rememberMe, password);
         }
         
         public IdentityResult TryRegistration(User user, string password, bool rememberMe)
         {
-            var result = _userManager.CreateAsync(user, password).GetAwaiter().GetResult();
+            var result = _userService.CreateUser(user, password);
 
             if (result.Succeeded)
             {
-                AttachRole(user, "User");
-                _signInManager.SignInAsync(user, isPersistent: rememberMe);
+                _userService.AttachRole(user, "User");
+                _userService.Login(user, rememberMe);
             }
 
             return result;
@@ -37,22 +34,12 @@ namespace ScheduleOnline.BusinessLogic.Authorization
 
         public void Logout()
         {
-            _signInManager.SignOutAsync().GetAwaiter().GetResult();
+            _userService.Logout();
         }
 
         public bool IsLogined(ClaimsPrincipal user)
         {
-            return string.IsNullOrEmpty(_userManager.GetUserId(user));
-        }
-
-        private void AttachRole(User user, string roleName)
-        {
-            var role = new Role { Name = roleName };
-
-            if (_roleManager.Roles.Contains(role) == false)
-                _roleManager.CreateAsync(role);
-
-            _userManager.AddToRoleAsync(user, roleName);
+            return _userService.IsLogined(user);
         }
     }
 }
