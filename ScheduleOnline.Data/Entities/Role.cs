@@ -4,6 +4,6 @@ namespace ScheduleOnline.Data.Entities
 {
     public class Role : IdentityRole<Guid>
     {
-
+        
     }
 }

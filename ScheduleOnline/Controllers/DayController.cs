@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineSchedule.Controllers
+namespace ScheduleOnline.Controllers
 {
     public class DayController : Controller
     {
         [HttpPost]
-        public string Add(string scheduleId)
+        public string Create(string scheduleId)
         {
             return $"all good, schedule id is {scheduleId}";
         }

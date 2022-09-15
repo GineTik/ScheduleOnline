@@ -1,6 +1,6 @@
 @using Microsoft.AspNetCore.Identity;
 
-@model OnlineSchedule.Presentation.ViewModels.CreateUserViewModel
+@model ScheduleOnline.Presentation.ViewModels.UserViewModels.CreateUserViewModel
 @inject RoleManager<IdentityRole> _roleManager
 
 <form action="CreateUser" method="post" class="form">
@@ -31,6 +31,4 @@
     <button class="btn btn-primary">створити</button>
 
     <div asp-validation-summary="ModelOnly"></div>
-
-    @*<div class="form__error">якась помилка при створенні користувача</div>*@
 </form>

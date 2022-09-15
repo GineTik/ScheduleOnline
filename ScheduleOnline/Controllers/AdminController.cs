@@ -3,16 +3,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ScheduleOnline.BusinessLogic.Services;
+using ScheduleOnline.Data.Entities;
+using ScheduleOnline.Presentation.ViewModels.UserViewModels;
+using Roles = ScheduleOnline.BusinessLogic.Services.UserService.Roles;
 
-namespace OnlineSchedule.Controllers
+namespace ScheduleOnline.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = nameof(Roles.User))]
     public class AdminController : Controller 
     {
         private readonly UserService _userService;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
-        public AdminController(UserService userService, Mapper mapper)
+        public AdminController(UserService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
@@ -21,7 +24,7 @@ namespace OnlineSchedule.Controllers
         public IActionResult Index()
         {
             var users = _userService.GetAllUsers();
-            var models = _mapper.Map<List<>>(users);
+            var models = _mapper.Map<List<ShortDataUserViewModel>>(users);
             return View(models);
         }
 
@@ -33,27 +36,26 @@ namespace OnlineSchedule.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserViewModel model)
         {
-            //if (ModelState.IsValid == false)
-            //    return View(model);
+            if (ModelState.IsValid == false)
+                return View(model);
 
-            //var user = _mapper.Map<User>(model);
-            //var result = await _userService.TryCreateUser(user, model.Password, model.Role);
+            var user = _mapper.Map<User>(model);
 
-            //if (result.Succeeded)
-            //{
-            //    var performer = _userService.GetUser(HttpContext.User);
-            //    return RedirectToAction("Index");
-            //}
+            var role = (Roles)Enum.Parse(typeof(Roles), model.Role);
+            var result = _userService.CreateUser(user, model.Password, role);
 
-            //AddErrors(result.Errors);
-            //return View(model);
+            if (result.Succeeded == true)
+                return RedirectToAction("Index");
+
+            SetErrors(result.Errors);
+
+            return View(model);
         }
 
-
-        private void AddErrors(IEnumerable<IdentityError> errors)
+        private void SetErrors(IEnumerable<IdentityError> errors)
         {
-            //foreach (var item in errors)
-            //    ModelState.AddModelError(string.Empty, item.Description);
+            foreach (var item in errors)
+                ModelState.AddModelError(string.Empty, item.Description);
         }
     }
 }

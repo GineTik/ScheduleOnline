@@ -1,4 +1,4 @@
-@model AddScheduleViewModel
+@model ScheduleOnline.Presentation.ViewModels.ScheduleViewModels.AddScheduleViewModel
 
 <form action="Add" method="post" class="form">
     <h1 class="title">Новий розклад</h1>
@@ -13,13 +13,11 @@
     </div>
 
     <div class="input-row">
-        <input asp-for="AllowComments" type="checkbox" class="checkbox">
-        <label asp-for="AllowComments">дозволити коментарі</label>
+        <input asp-for="CommentsIsAllow" type="checkbox" class="checkbox">
+        <label asp-for="CommentsIsAllow">дозволити коментарі</label>
     </div>
 
     <button class="btn btn-primary">створити</button>
 
     <div asp-validation-summary="ModelOnly"></div>
-
-    @*<div class="form__error">якась помилка при створенні розкладу</div>*@
 </form>

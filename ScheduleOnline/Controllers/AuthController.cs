@@ -5,14 +5,14 @@ using ScheduleOnline.BusinessLogic.Authorization;
 using ScheduleOnline.Data.Entities;
 using ScheduleOnline.Presentation.ViewModels.Authorization;
 
-namespace OnlineSchedule.Controllers
+namespace ScheduleOnline.Controllers
 {
     public class AuthController : Controller 
     {
         private readonly Authorizator _authorizator;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
-        public AuthController(Authorizator authorizator, Mapper mapper)
+        public AuthController(Authorizator authorizator, IMapper mapper)
         {
             _authorizator = authorizator;
             _mapper = mapper;
@@ -32,16 +32,13 @@ namespace OnlineSchedule.Controllers
             if (ModelState.IsValid == false)
                 return View(model);
 
-            var user = _mapper.Map<User>(model);
+            var result = _authorizator.TryLogin(model.Email, model.Password, model.RememberMe);
+            
+            if (result.Succeeded == true)
+                return RedirectToAction("All", "Schedule");
 
-            var loginResult = _authorizator.TryLogin(user, model.Password, model.RememberMe);
-            if (loginResult.Succeeded == false)
-            {
-                ModelState.AddModelError(String.Empty, "Невірна почта або пароль");
-                return View(model);
-            }
-
-            return RedirectToAction("All", "Schedule");
+            ModelState.AddModelError(String.Empty, "Невірна почта або пароль");
+            return View(model);
         }
 
         public IActionResult Registration()
@@ -59,23 +56,26 @@ namespace OnlineSchedule.Controllers
                 return View(model);
 
             var user = _mapper.Map<User>(model);
-            var registrationResult = _authorizator.TryRegistration(user, model.Password, model.RememberMe);
+            var result = _authorizator.TryRegistration(user, model.Password, model.RememberMe);
 
-            if (registrationResult.Succeeded == false)
-            {
-                foreach (var error in registrationResult.Errors)
-                    ModelState.AddModelError(String.Empty, error.Description);
+            if (result.Succeeded == true)
+                return RedirectToAction("All", "Schedule");
 
-                return View(model);
-            }
+            SetErrors(result.Errors);
 
-            return RedirectToAction("All", "Schedule");
+            return View(model);
         }
 
         public IActionResult Logout()
         {
             _authorizator.Logout();
             return RedirectToAction("Login");
+        }
+
+        public void SetErrors(IEnumerable<IdentityError> errors)
+        {
+            foreach (var error in errors)
+                ModelState.AddModelError(String.Empty, error.Description);
         }
     }
 }

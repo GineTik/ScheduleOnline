@@ -1,5 +1,5 @@
-@inject OnlineSchedule.BusinessLogic.Authenticate.Authenticator _authenticator
-@inject OnlineSchedule.BusinessLogic.Services.UserService _userService
+@inject ScheduleOnline.BusinessLogic.Authorization.Authorizator _authorizator
+@inject ScheduleOnline.BusinessLogic.Services.UserService _userService
 
 <!DOCTYPE html>
 <html lang="uk">
@@ -20,12 +20,12 @@
         <nav class="navbar header__navbar">
             <a asp-controller="Home" asp-action="Index" class="navbar__item navbar__item--active">Головна</a>
             
-            @if (_userService.GetUser(Context.User) != null)
+            @if (_userService.GetLoginedUser() != null)
             {
                 <a asp-controller="Schedule" asp-action="All" class="navbar__item">Мої розклади</a>
             }
 
-            @if (_userService.ExistsRole(Context.User, "Moderator, Admin"))
+            @if (_userService.ExistsRole(Context.User, "Moderator", "Admin"))
             {
                 <a asp-controller="Moderator" asp-action="Index" class="navbar__item">Для модератора</a>
             }
@@ -37,7 +37,7 @@
         </nav>
         <div class="account btn-group header__account">
 
-            @if (_authenticator.IsAuthorized(Context.User) == false)
+            @if (_authorizator.IsLogined(Context.User) == false)
             {
                 <a asp-controller="Auth" asp-action="Login" class="btn btn-secondary">вхід</a>
                 <a asp-controller="Auth" asp-action="Registration" class="btn btn-primary">реєстрація</a>

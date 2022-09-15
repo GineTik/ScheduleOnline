@@ -1,19 +1,21 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineSchedule.BusinessLogic.Services;
-using OnlineSchedule.Data.Entities;
-using OnlineSchedule.Data.Repositories.Interfaces;
-using OnlineSchedule.Presentation.ViewModels;
+using ScheduleOnline.BusinessLogic.Services;
+using ScheduleOnline.Data.Entities;
+using ScheduleOnline.Data.Repositories.Interfaces;
+using ScheduleOnline.Presentation.ViewModels.ScheduleViewModels;
 
-namespace OnlineSchedule.Controllers 
+namespace ScheduleOnline.Controllers
 {
+    [Authorize]
     public class ScheduleController : Controller
     {
         private readonly IScheduleRepository _rep;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
         private readonly UserService _userService;
 
-        public ScheduleController(IScheduleRepository rep, Mapper mapper, UserService userService)
+        public ScheduleController(IScheduleRepository rep, IMapper mapper, UserService userService)
         {
             _rep = rep;
             _mapper = mapper;
@@ -22,10 +24,11 @@ namespace OnlineSchedule.Controllers
 
         public IActionResult Index(Guid id)
         {
+            // для тесту
             if (id == Guid.Empty)
                 return View();
 
-            Schedule schedule = _rep.Get(id);
+            Schedule schedule = _rep.GetItem(id);
             if (schedule == null)
                 return NotFound(); 
             return View(schedule);
@@ -33,9 +36,9 @@ namespace OnlineSchedule.Controllers
 
         public IActionResult All()
         {
-            var user = _userService.GetUser(HttpContext.User);
-            var schedules = _rep.GetByUserId(user.Id);
-            var models = _mapper.Map<List<ScheduleListItem>>(schedules);
+            var user = _userService.GetLoginedUser();
+            var schedules = _rep.GetSchedulesOfUser(user.Id);
+            var models = _mapper.Map<List<ShortDataScheduleViewModel>>(schedules);
 
             return View(models);
         }
@@ -53,7 +56,7 @@ namespace OnlineSchedule.Controllers
 
             var schedule = _mapper.Map<Schedule>(model);
 
-            _rep.Add(schedule);
+            _rep.AddItem(schedule);
             return RedirectToAction("Index", new { id = schedule.Id });
         }
     }

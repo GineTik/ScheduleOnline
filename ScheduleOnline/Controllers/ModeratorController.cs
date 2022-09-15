@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineSchedule.Controllers
+namespace ScheduleOnline.Controllers
 {
     public class ModeratorController : Controller
     {

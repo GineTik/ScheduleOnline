@@ -4,12 +4,12 @@ namespace ScheduleOnline.Presentation.ViewModels.Authorization
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Невірна почта")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "")]
-        [DataType(DataType.Password, ErrorMessage = "")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }

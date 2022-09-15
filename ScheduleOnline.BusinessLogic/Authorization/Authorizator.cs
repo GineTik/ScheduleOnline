@@ -14,20 +14,17 @@ namespace ScheduleOnline.BusinessLogic.Authorization
             _userService = userService;
         }
 
-        public SignInResult TryLogin(User user, string password, bool rememberMe)
+        public SignInResult TryLogin(string email, string password, bool rememberMe)
         {
-            return _userService.LoginWithPassword(user, rememberMe, password);
+            return _userService.LoginWithPassword(email, password, rememberMe);
         }
         
         public IdentityResult TryRegistration(User user, string password, bool rememberMe)
         {
-            var result = _userService.CreateUser(user, password);
+            var result = _userService.CreateUser(user, password, UserService.Roles.User);
 
             if (result.Succeeded)
-            {
-                _userService.AttachRole(user, "User");
                 _userService.Login(user, rememberMe);
-            }
 
             return result;
         }

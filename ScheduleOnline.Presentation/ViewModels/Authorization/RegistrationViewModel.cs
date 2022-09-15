@@ -4,20 +4,20 @@ namespace ScheduleOnline.Presentation.ViewModels.Authorization
 {
     public class RegistrationViewModel
     {
-        [Required(ErrorMessage = "")]
-        [MaxLength(255, ErrorMessage = "")]
-        [MinLength(2, ErrorMessage = "")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [MaxLength(255, ErrorMessage = "Максимум 255 символів")]
+        [MinLength(2, ErrorMessage = "Мінімум 2 символи")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Невірна почта")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "")]
-        [DataType(DataType.Password, ErrorMessage = "")]
+        [Required(ErrorMessage = "Обов'язкове поле")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Compare("Password", ErrorMessage = "")]
+        [Compare("Password", ErrorMessage = "Паролі не співпадають")]
         public string ConfirmPassword { get; set; }
 
         public bool RememberMe { get; set; }
