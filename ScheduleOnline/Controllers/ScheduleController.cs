@@ -24,13 +24,11 @@ namespace ScheduleOnline.Controllers
 
         public IActionResult Index(Guid id)
         {
-            // для тесту
-            if (id == Guid.Empty)
-                return View();
-
-            Schedule schedule = _rep.GetItem(id);
+            Schedule? schedule = _rep.GetItem(id);
+            
             if (schedule == null)
                 return NotFound(); 
+
             return View(schedule);
         }
 

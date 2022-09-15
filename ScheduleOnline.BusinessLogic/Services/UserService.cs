@@ -14,13 +14,6 @@ namespace ScheduleOnline.BusinessLogic.Services
             Admin
         }
 
-        //private readonly Dictionary<Roles, string> _rolesRoute = new Dictionary<Roles, string>()
-        //{
-        //    { Roles.User, "User" },
-        //    { Roles.Moderator, "Moderator" },
-        //    { Roles.Admin, "Admin" }
-        //};
-
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
@@ -69,7 +62,6 @@ namespace ScheduleOnline.BusinessLogic.Services
 
         public void AttachRole(User user, Roles roleEnum)
         {
-            //var roleName = _rolesRoute[roleEnum];
             var roleName = roleEnum.ToString();
             var role = new Role { Name = roleName };
 

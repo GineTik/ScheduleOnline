@@ -3,7 +3,7 @@
     public class Schedule : Entity
     {
         public string Title { get; set; }
-        public string About { get; set; }
+        public string? About { get; set; }
 
         public bool CommentsIsAllow { get; set; }
         public int Position { get; set; }

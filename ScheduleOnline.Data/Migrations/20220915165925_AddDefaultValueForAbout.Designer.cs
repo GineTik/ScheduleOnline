@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScheduleOnline.Data.EF;
 
@@ -11,9 +12,10 @@ using ScheduleOnline.Data.EF;
 namespace ScheduleOnline.Data.Migrations
 {
     [DbContext(typeof(ScheduleContext))]
-    partial class ScheduleContextModelSnapshot : ModelSnapshot
+    [Migration("20220915165925_AddDefaultValueForAbout")]
+    partial class AddDefaultValueForAbout
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,7 +286,10 @@ namespace ScheduleOnline.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("About")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValueSql("''");
 
                     b.Property<bool>("CommentsIsAllow")
                         .HasColumnType("bit");

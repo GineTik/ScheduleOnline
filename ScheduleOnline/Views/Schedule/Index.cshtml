@@ -1,11 +1,23 @@
+@model ScheduleOnline.Data.Entities.Schedule
+
 <div class="main__header">
-    <div class="editable-field title main__editable-field" contenteditable="">Назва проєкта</div>
+    <div class="editable-field title main__editable-field" contenteditable="">@Model.Title</div>
     <div class="btn-group">
         <div class="btn btn-danger">поскаржитись</div>
-        <div class="btn btn-secondary">викл. коментарі</div>
+        <div class="btn btn-secondary">
+            @if (Model.CommentsIsAllow == true)
+            {
+                @: викл.
+            }
+            else
+            {
+                @: вкл.
+            }
+             коментарі
+        </div>
     </div>
     <div class="share">
-        <a href="#" class="link share__link">https://www.google.com/</a>
+        <a href="#" class="link share__link">@Url.Link("default", new { Id = Model.Id })</a>
         <div class="btn btn-secondary share__btn">копіювати</div>
     </div>
 </div>
@@ -74,10 +86,13 @@
 }
 </div>
 
-<div class="about">
-    <h1 class="title text-secondary about__title">Опис</h1>
-    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eu nisi a velit tempor porttitor eu et mi. Aenean tellus velit, commodo nec malesuada ut, placerat eget mi. Maecenas vestibulum nisi quis purus auctor fringilla. Nullam sodales risus porta, finibus felis cursus, vulputate justo. Pellentesque id egestas augue, quis accumsan odio. Nullam ornare tortor id tempor accumsan. Nam vel leo ipsum. Fusce ligula nisl, accumsan quis blandit vel, finibus at nunc. Nulla nec dolor ut urna eleifend semper. Mauris ipsum massa, semper vitae venenatis sed, dapibus at neque. Duis posuere ligula at odio hendrerit elementum. Curabitur nec urna nunc. In hac habitasse platea dictumst. Aenean id risus rutrum, bibendum nulla a, aliquet arcu.</p>
-</div>
+@if (Model.About != null)
+{
+    <div class="about">
+        <h1 class="title text-secondary about__title">Опис</h1>
+        <p class="text">@Model.About</p>
+    </div>
+}
 
 <div class="comments">
     <h1 class="title text-secondary comments__title">Коментарі</h1>
