@@ -20,7 +20,7 @@ namespace ScheduleOnline.Controllers
 
         public IActionResult Login()
         {
-            if (_authorizator.IsLogined(HttpContext.User) == true)
+            if (_authorizator.Logined == true)
                 return RedirectToAction("Index", "Home");
 
             return View();
@@ -43,7 +43,7 @@ namespace ScheduleOnline.Controllers
 
         public IActionResult Registration()
         {
-            if (_authorizator.IsLogined(HttpContext.User) == true)
+            if (_authorizator.Logined == true)
                 return RedirectToAction("Index", "Home");
 
             return View();

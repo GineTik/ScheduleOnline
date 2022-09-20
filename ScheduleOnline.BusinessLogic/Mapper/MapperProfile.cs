@@ -13,8 +13,12 @@ namespace ScheduleOnline.BusinessLogic.Mapper
         {
             CreateMap<RegistrationViewModel, User>()
                 .ConvertUsing<RegistrationConvertor>();
+
             CreateMap<User, ShortDataUserViewModel>()
                 .ConvertUsing<ShortDataUserConvertor>();
+            CreateMap<CreateUserViewModel, User>()
+               .ConvertUsing<CreateUserConvertor>();
+
             CreateMap<Schedule, ShortDataScheduleViewModel>();
             CreateMap<AddScheduleViewModel, Schedule>()
                 .ConvertUsing<AddScheduleConvertor>();

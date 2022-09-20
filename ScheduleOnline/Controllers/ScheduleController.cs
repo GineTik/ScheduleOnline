@@ -1,8 +1,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ScheduleOnline.BusinessLogic.Services;
 using ScheduleOnline.Data.Entities;
+using ScheduleOnline.Data.Repositories.IdentityImplements;
 using ScheduleOnline.Data.Repositories.Interfaces;
 using ScheduleOnline.Presentation.ViewModels.ScheduleViewModels;
 
@@ -13,13 +13,13 @@ namespace ScheduleOnline.Controllers
     {
         private readonly IScheduleRepository _rep;
         private readonly IMapper _mapper;
-        private readonly UserService _userService;
+        private readonly UserRepository _userRepository ;
 
-        public ScheduleController(IScheduleRepository rep, IMapper mapper, UserService userService)
+        public ScheduleController(IScheduleRepository rep, IMapper mapper, UserRepository userRepository)
         {
             _rep = rep;
             _mapper = mapper;
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index(Guid id)
@@ -34,7 +34,7 @@ namespace ScheduleOnline.Controllers
 
         public IActionResult All()
         {
-            var user = _userService.GetLoginedUser();
+            var user = _userRepository.GetLoginedUser();
             var schedules = _rep.GetSchedulesOfUser(user.Id);
             var models = _mapper.Map<List<ShortDataScheduleViewModel>>(schedules);
 

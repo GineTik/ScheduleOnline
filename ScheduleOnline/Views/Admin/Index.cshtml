@@ -1,4 +1,4 @@
-@model IEnumerable<ScheduleOnline.Presentation.ViewModels.UserViewModels.ShortDataUserViewModel>
+@model IEnumerable<ShortDataUserViewModel>
 
 <div class="list__wrapper">
     <input type="text" class="input input-search input--hide" placeholder="пошук">
@@ -11,30 +11,32 @@
     </div>
     
     <div class="list">
-        @foreach(var user in Model)
+        @if (Model == null)
         {
-            <div class="list__item">
-                <div>
-                    ім’я користувача <br>
-                    почта <br>
-                    дата реєстрація <br>
-                    роль <br>
+            @: не знайдено користувачів
+        }
+        else
+        {
+            foreach(var user in Model)
+            {
+                <div class="list__item">
+                    <div>
+                        ім’я користувача <br>
+                        почта <br>
+                        дата реєстрація <br>
+                        роль <br>
+                    </div>
+                    <div class="list__data">
+                        @user.Name <br>
+                        @user.Email <br>
+                        @user.DateOfRegistration <br>
+                        @user.Roles <br>
+                    </div>
+                    <div class="btn-group list__item-left">
+                        <div class="btn btn-secondary">видалити</div>
+                    </div>
                 </div>
-                <div class="list__data">
-                    @user.Name <br>
-                    @user.Email <br>
-                    @user.DateOfRegistration <br>
-                    @user.Roles <br>
-
-                    @*GineTik <br>
-                    densheva18072003@gmail.com <br>
-                    28.07.2022 <br>
-                    адміністратор <br>*@
-                </div>
-                <div class="btn-group list__item-left">
-                    <div class="btn btn-secondary">видалити</div>
-                </div>
-            </div>
+            }
         }
     </div>
 </div>

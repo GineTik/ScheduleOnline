@@ -1,20 +1,36 @@
-@model ScheduleOnline.Data.Entities.Schedule
+@model Schedule
+@inject ScheduleOnline.Data.Repositories.IdentityImplements.UserRepository _userRepository
+@{
+    var author = _userRepository.GetUserById(Model.UserId);
+    var loginedUser = _userRepository.GetLoginedUser();
+
+    bool LoginedUserIsAuthor()
+    {
+        return author.Id == loginedUser.Id;
+    }
+}
 
 <div class="main__header">
     <div class="editable-field title main__editable-field" contenteditable="">@Model.Title</div>
     <div class="btn-group">
-        <div class="btn btn-danger">поскаржитись</div>
-        <div class="btn btn-secondary">
-            @if (Model.CommentsIsAllow == true)
-            {
-                @: викл.
-            }
-            else
-            {
-                @: вкл.
-            }
-             коментарі
-        </div>
+        @if (LoginedUserIsAuthor())
+        {
+            <div class="btn btn-secondary">
+                @if (Model.CommentsIsAllow == true)
+                {
+                    @: викл.
+                }
+                else
+                {
+                    @: вкл.
+                }
+                 коментарі
+            </div>
+        }
+        else
+        {
+            <div class="btn btn-danger">поскаржитись</div>
+        }
     </div>
     <div class="share">
         <a href="#" class="link share__link">@Url.Link("default", new { Id = Model.Id })</a>
@@ -124,7 +140,11 @@
                 <div class="comment__btns btn-group">
                     <div class="btn btn-secondary">редагувати</div>
                     <div class="btn btn-secondary">видалити</div>
-                    <div class="btn btn-secondary">закріпити</div>
+                    
+                    @if (LoginedUserIsAuthor())
+                    {
+                        <div class="btn btn-secondary">закріпити</div>
+                    }
                 </div>
             </div>
         }

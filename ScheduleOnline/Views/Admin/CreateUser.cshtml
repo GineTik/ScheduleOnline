@@ -1,7 +1,5 @@
-@using Microsoft.AspNetCore.Identity;
-
-@model ScheduleOnline.Presentation.ViewModels.UserViewModels.CreateUserViewModel
-@inject RoleManager<IdentityRole> _roleManager
+@using Roles = ScheduleOnline.Data.Repositories.IdentityImplements.RoleRepository.Roles
+@model CreateUserViewModel
 
 <form action="CreateUser" method="post" class="form">
     <h1 class="title">Створити користувача</h1>
@@ -26,8 +24,11 @@
         <span asp-validation-for="ConfirmPassword"></span>
     </div>
 
-    <select asp-for="Role" asp-items="new SelectList(_roleManager.Roles)" class="input"></select>
-
+    @{
+        var roles = Enum.GetNames(typeof(Roles)).ToList();
+    }
+    <select asp-for="Role" asp-items="new SelectList(roles)" class="input"></select>
+    
     <button class="btn btn-primary">створити</button>
 
     <div asp-validation-summary="ModelOnly"></div>
