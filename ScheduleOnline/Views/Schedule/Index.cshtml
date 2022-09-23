@@ -1,7 +1,7 @@
 @model Schedule
 @inject ScheduleOnline.Data.Repositories.IdentityImplements.UserRepository _userRepository
 @{
-    var author = _userRepository.GetUserById(Model.UserId);
+    var author = _userRepository.GetById(Model.UserId);
     var loginedUser = _userRepository.GetLoginedUser();
 
     bool LoginedUserIsAuthor()
@@ -93,11 +93,14 @@
             </td>
         </tr>
 
-        <tr class="table__row">
-            <td class="table__col table__btn btn" colspan="2">
-                додати новий рядок
-            </td>
-        </tr>
+        @if (@LoginedUserIsAuthor())
+        {
+            <tr class="table__row">
+                <td class="table__col table__btn btn" colspan="2">
+                    додати новий рядок
+                </td>
+            </tr>
+        }
     </table>
 }
 </div>

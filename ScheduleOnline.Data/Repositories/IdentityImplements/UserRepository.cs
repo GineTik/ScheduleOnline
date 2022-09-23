@@ -32,7 +32,7 @@ namespace ScheduleOnline.Data.Repositories.IdentityImplements
             return result;
         }
 
-        public List<User> GetAllUsers()
+        public List<User> GetAll()
         {
             return _userManager.Users.ToList();
         }
@@ -47,7 +47,7 @@ namespace ScheduleOnline.Data.Repositories.IdentityImplements
             return _userManager.Users.Where(o => o.Email.Contains(partEmail)).ToList();
         }
 
-        public User GetUserById(Guid id)
+        public User GetById(Guid id)
         {
             return _userManager.FindByIdAsync(id.ToString()).GetAwaiter().GetResult();
         }
@@ -64,7 +64,7 @@ namespace ScheduleOnline.Data.Repositories.IdentityImplements
 
         public void Remove(Guid id)
         {
-            var user = GetUserById(id);
+            var user = GetById(id);
 
             if (user == null)
                 throw new ArgumentNullException("не існує користувача з таким ітендифікатором");
@@ -79,7 +79,7 @@ namespace ScheduleOnline.Data.Repositories.IdentityImplements
 
         public void Restore(Guid id)
         {
-            var user = GetUserById(id);
+            var user = GetById(id);
 
             if (user == null)
                 throw new ArgumentNullException("не існує користувача з таким ітендифікатором");
@@ -93,7 +93,16 @@ namespace ScheduleOnline.Data.Repositories.IdentityImplements
 
         public bool IsRemoved(Guid id)
         {
-            return GetUserById(id).IsRemoved == true;
+            User user = GetById(id);
+            if (user == null)
+                throw new ArgumentNullException($"the user with id is {id} not found");
+
+            return IsRemoved(user);
+        }
+
+        public bool IsRemoved(User user)
+        {
+            return user.IsRemoved == true;
         }
     }
 }

@@ -27,12 +27,12 @@ builder.Services.AddIdentity<User, Role>(options =>
 
 builder.Services.AddMvc();
 
-builder.Services.AddTransient<UserRepository>();
-builder.Services.AddTransient<RoleRepository>();
 builder.Services.AddTransient<Authorizator>();
 builder.Services.AddAutoMapper(
     Assembly.GetAssembly(typeof(MapperProfile)));
 
+builder.Services.AddTransient<UserRepository>();
+builder.Services.AddTransient<RoleRepository>();
 builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
 
 

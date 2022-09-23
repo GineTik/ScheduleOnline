@@ -18,10 +18,13 @@ namespace ScheduleOnline.BusinessLogic.Mapper.MapperConvertors
         {
             return new ShortDataUserViewModel()
             {
+                Id = source.Id,
                 Name = source.Name,
                 Email = source.Email,
                 DateOfRegistration = source.DateOfRegistration,
-                Roles = string.Join(", ", _roleRepository.GetRoles(source))
+                Roles = string.Join(", ", _roleRepository.GetRoles(source)),
+                IsRemoved = source.IsRemoved,
+                DateOfRemoving = source.DateOfRemoving,
             };
         }
     }

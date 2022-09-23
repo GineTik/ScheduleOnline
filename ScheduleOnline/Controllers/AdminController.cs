@@ -24,7 +24,7 @@ namespace ScheduleOnline.Controllers
         public IActionResult Index()
         {
             var loginedUser = _userRepository.GetLoginedUser();
-            var users = _userRepository.GetAllUsers();
+            var users = _userRepository.GetAll();
             users.Remove(loginedUser);
             var models = _mapper.Map<List<ShortDataUserViewModel>>(users);
             return View(models);

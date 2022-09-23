@@ -41,18 +41,19 @@ namespace ScheduleOnline.Controllers
         }
 
         [HttpPost]
-        public void RemoveUser(Guid userId)
+        public void RemoveUser(Guid id)
         {
-            if (_userService.GetUserById(userId) != null &&
-                _userService.IsRemoved(userId) == false)
-                _userService.Remove(userId);
+            if (_userService.GetById(id) != null &&
+                _userService.IsRemoved(id) == false)
+                _userService.Remove(id);
         }
 
         [HttpPost]
-        public void RestoreUser(Guid userId)
+        public void RestoreUser(Guid id)
         {
-            if (_userService.IsRemoved(userId) == true)
-                _userService.Restore(userId);
+            if (_userService.GetById(id) != null &&
+                _userService.IsRemoved(id) == true)
+                _userService.Restore(id);
         }
     }
 }

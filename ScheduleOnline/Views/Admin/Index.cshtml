@@ -1,11 +1,11 @@
 @model IEnumerable<ShortDataUserViewModel>
 
 <div class="list__wrapper">
-    <input type="text" class="input input-search input--hide" placeholder="пошук">
+    <input type="text" class="input input-search input--hide input-search" placeholder="пошук" value="@Context.Request.Query["email"]">
     <div class="main__header">
         <h1 class="title">Користувачі</h1>
         <div class="btn-group">
-            <div class="btn btn-secondary search">пошук</div>
+            <div class="btn btn-secondary btn-search">пошук</div>
             <a asp-action="CreateUser" class="btn btn-secondary">створити користувача</a>
         </div>
     </div>
@@ -33,10 +33,53 @@
                         @user.Roles <br>
                     </div>
                     <div class="btn-group list__item-left">
-                        <div class="btn btn-secondary">видалити</div>
+                        @if (user.IsRemoved == true)
+                        {
+                            <div class="btn btn-secondary btn-restore" data-id="@user.Id">відновити</div>
+                        }
+                        else
+                        {
+                            <div class="btn btn-secondary btn-remove" data-id="@user.Id">видалити</div>
+                        }
                     </div>
                 </div>
             }
         }
     </div>
 </div>
+
+@section Scripts {
+    <script type="module">
+        import UserManager from "/js/UserManager.js";
+        let userManager = new UserManager();
+
+        $(".btn-search").click(toggleSearch);
+        $("body").on("click", ".btn-remove", removeUser);
+        $("body").on("click", ".btn-restore", restoreUser);
+
+        function toggleSearch() {
+            let input = $(".input-search");
+
+            if (input.hasClass("input--hide")) {
+                input.removeClass("input--hide");
+            } else {
+                input.addClass("input--hide");
+                var email = input.val();
+
+                userManager.find(email);
+            }
+        }
+
+        function removeUser() {
+            let id = $(this).attr("data-id");
+            let deletedElem = $(this).parent(".btn-group");
+            userManager.delete(id, deletedElem);
+        }
+
+        function restoreUser() {
+            let id = $(this).attr("data-id");
+            let restoreElem = $(this).parent(".btn-group");
+            userManager.restore(id, restoreElem);
+        }
+    </script>
+}
