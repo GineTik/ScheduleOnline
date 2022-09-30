@@ -14,14 +14,12 @@ export default class UserManager {
     }
 
     delete(id, buttonWrapper) {
-        Server.post("/User/RemoveUser/" + id, () => {
-            buttonWrapper.html($("<div class='btn btn-secondary btn-restore' data-id='${id}'>відновити</div>"));
-        });
+        Server.post("/User/RemoveUser", { id: id });
+        buttonWrapper.html($("<div class='btn btn-secondary btn-restore' data-id='${id}'>відновити</div>"));
     }
 
     restore(id, buttonWrapper) {
-        Server.post("/User/RestoreUser/" + id, () => {
-            buttonWrapper.html($("<div class='btn btn-secondary btn-remove' data-id='${id}'>видалити</div>"));
-        });
+        Server.post("/User/RestoreUser", { id: id });
+        buttonWrapper.html($("<div class='btn btn-secondary btn-remove' data-id='${id}'>видалити</div>"));
     }
 }

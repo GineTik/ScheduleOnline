@@ -11,31 +11,34 @@ namespace ScheduleOnline.Controllers
     [Authorize]
     public class ScheduleController : Controller
     {
-        private readonly IScheduleRepository _rep;
+        private readonly IScheduleRepository _scheduleRepository;
+        private readonly IDayRepository _dayRepository;
         private readonly IMapper _mapper;
-        private readonly UserRepository _userRepository ;
+        private readonly UserRepository _userRepository;
 
-        public ScheduleController(IScheduleRepository rep, IMapper mapper, UserRepository userRepository)
+        public ScheduleController(IScheduleRepository rep, IMapper mapper, UserRepository userRepository, IDayRepository dayRepository)
         {
-            _rep = rep;
+            _scheduleRepository = rep;
             _mapper = mapper;
             _userRepository = userRepository;
+            _dayRepository = dayRepository;
         }
 
         public IActionResult Index(Guid id)
         {
-            Schedule? schedule = _rep.GetItem(id);
-            
+            Schedule? schedule = _scheduleRepository.GetItem(id);
+
             if (schedule == null)
                 return NotFound(); 
 
+            schedule.Days = _dayRepository.GetDaysOfSchedule(id).ToList();
             return View(schedule);
         }
 
         public IActionResult All()
         {
             var user = _userRepository.GetLoginedUser();
-            var schedules = _rep.GetSchedulesOfUser(user.Id);
+            var schedules = _scheduleRepository.GetSchedulesOfUser(user.Id);
             var models = _mapper.Map<List<ShortDataScheduleViewModel>>(schedules);
 
             return View(models);
@@ -54,8 +57,19 @@ namespace ScheduleOnline.Controllers
 
             var schedule = _mapper.Map<Schedule>(model);
 
-            _rep.AddItem(schedule);
+            _scheduleRepository.AddItem(schedule);
             return RedirectToAction("Index", new { id = schedule.Id });
+        }
+
+        public void ChangeTitle(Guid id, string title)
+        {
+            var schedule = _scheduleRepository.GetItem(id);
+
+            if (schedule == null)
+                throw new ArgumentNullException(nameof(id));
+
+            schedule.Title = title;
+            _scheduleRepository.UpdateItem(schedule);
         }
     }
 }

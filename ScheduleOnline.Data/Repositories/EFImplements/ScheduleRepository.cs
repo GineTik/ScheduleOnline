@@ -42,5 +42,17 @@ namespace ScheduleOnline.Data.Repositories.EFImplements
         {
             return _context.Schedules.Where(x => x.UserId == userId);
         }
+
+        public bool SwitchComments(Guid id)
+        {
+            var schedule = GetItem(id);
+
+            if (schedule == null)
+                throw new ArgumentNullException("id");
+
+            schedule.CommentsIsAllow = !schedule.CommentsIsAllow;
+            _context.SaveChanges();
+            return schedule.CommentsIsAllow;
+        }
     }
 }

@@ -12,5 +12,6 @@
         public DateTime DateOfCreation { get; set; }
 
         public Guid UserId { get; set; }
+        public List<Day> Days { get; set; }
     }
 }
