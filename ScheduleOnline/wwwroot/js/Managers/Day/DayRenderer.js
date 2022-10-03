@@ -5,7 +5,7 @@
                 <tr class="table__title">
                     <td class="table__col" colspan="2">
                         <div class="table__editable-field editable-field">${day.title}</div>
-                        <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+                        <ion-icon class="btn-icon table__trash" name="trash-sharp" data-delete-id="${day.id}"></ion-icon>
                     </td>
                 </tr>
                 <tr class="table__row">

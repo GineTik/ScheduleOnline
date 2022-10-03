@@ -4,4 +4,8 @@ export default class DayManager {
     create(scheduleId) {
         return Server.post("/Day/Create", { scheduleId: scheduleId });
     }
+
+    remove(dayId) {
+        return Server.post("/Day/Remove", { dayId: dayId });
+    }
 }

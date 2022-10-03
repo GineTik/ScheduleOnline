@@ -35,5 +35,19 @@ namespace ScheduleOnline.Controllers
             _dayRepository.AddItem(day);
             return Json(day);
         }
+
+        [HttpPost]
+        public JsonResult Remove(Guid dayId)
+        {
+            // доделать проверку на владельца этого дня
+
+            var day = _dayRepository.GetItem(dayId);
+
+            if (day == null)
+                return Json(NotFound());
+
+            _dayRepository.DeleteItem(day);
+            return Json(Ok());
+        }
     }
 }

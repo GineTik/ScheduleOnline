@@ -50,7 +50,7 @@
                     <tr class="table__title">
                         <td class="table__col" colspan="2">
                             <div class="table__editable-field editable-field">@day.Title</div>
-                            <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
+                            <ion-icon class="btn-icon table__trash" name="trash-sharp" data-delete-id="@day.Id"></ion-icon>
                         </td>
                     </tr>
 
@@ -198,6 +198,7 @@
 
         $(".share__btn").click(copyLink);
         $(".days__add-btn").click(addDay);
+        $("body").on("click", ".table__trash", removeDay);
         new EditableField($(".main__editable-field"), changeScheduleTitle);
 
         function copyLink() {
@@ -213,8 +214,16 @@
 
         function addDay() {
             let newDay = new DayManager().create("@Model.Id");
-            console.log(newDay);
             new DayRenderer().render($(".days__inner"), newDay);
+        }
+
+        function removeDay() {
+            let response = new DayManager().remove($(this).attr("data-delete-id"));
+
+            if (response.statusCode == 200)
+                $(this).parent().parent().parent().parent().remove();
+            else 
+                alert("помилка видалення!");
         }
     </script>
 }
