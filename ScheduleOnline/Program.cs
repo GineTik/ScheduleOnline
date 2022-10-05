@@ -9,6 +9,8 @@ using ScheduleOnline.Data.Repositories.Interfaces;
 using ScheduleOnline.Data.Repositories.EFImplements;
 using ScheduleOnline.Data.Repositories.IdentityImplements;
 using ScheduleOnline.BusinessLogic.Factories;
+using ScheduleOnline.Middlewares;
+using ScheduleOnline.ServicesExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,16 +34,15 @@ builder.Services.AddTransient<Authorizator>();
 builder.Services.AddAutoMapper(
     Assembly.GetAssembly(typeof(MapperProfile)));
 
-builder.Services.AddTransient<DayFactory>();
-builder.Services.AddTransient<UserRepository>();
-builder.Services.AddTransient<RoleRepository>();
-builder.Services.AddTransient<IScheduleRepository, ScheduleRepository>();
-builder.Services.AddTransient<IDayRepository, DayRepository>();
+builder.Services.BindFactories();
+builder.Services.BindRepositories();
 
 
 // =====================
 
 var app = builder.Build();
+
+app.UseMiddleware<AuthenticateValidationMiddleware>();
 
 app.UseStaticFiles();
 

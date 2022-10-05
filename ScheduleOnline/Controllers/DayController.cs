@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ScheduleOnline.BusinessLogic.Factories;
 using ScheduleOnline.Data.Repositories.IdentityImplements;
 using ScheduleOnline.Data.Repositories.Interfaces;
+using Responses = ScheduleOnline.Presentation.Responses;
 
 namespace ScheduleOnline.Controllers
 {
@@ -29,11 +30,11 @@ namespace ScheduleOnline.Controllers
             var loginedUserId = _userRepository.GetLoginedUser().Id;
 
             if (loginedUserId != authorId)
-                throw new InvalidOperationException("logined user is not author this schedule");
+                return Json(Responses.Response.AuthorizeError);
 
             var day = _dayFactory.Create(scheduleId);
             _dayRepository.AddItem(day);
-            return Json(day);
+            return Json(Responses.ContentResponse.SuccessWithContent(day));
         }
 
         [HttpPost]
@@ -44,10 +45,26 @@ namespace ScheduleOnline.Controllers
             var day = _dayRepository.GetItem(dayId);
 
             if (day == null)
-                return Json(NotFound());
-
+                return Json(Responses.Response.Error);
+            
             _dayRepository.DeleteItem(day);
-            return Json(Ok());
+            return Json(Responses.Response.Success);
+        }
+
+        [HttpPost]
+        public JsonResult ChangeTitle(Guid id, string title)
+        {
+            // доделать проверку на владельца этого дня
+
+            var day = _dayRepository.GetItem(id);
+
+            if (day == null)
+                return Json(Responses.Response.Error);
+
+            day.Title = title;
+            _dayRepository.UpdateItem(day);
+
+            return Json(Responses.Response.Success);
         }
     }
 }

@@ -8,4 +8,8 @@ export default class DayManager {
     remove(dayId) {
         return Server.post("/Day/Remove", { dayId: dayId });
     }
+
+    changeTitle(dayId, title) {
+        return Server.post("/Day/ChangeTitle", { id: dayId, title: title });
+    }
 }

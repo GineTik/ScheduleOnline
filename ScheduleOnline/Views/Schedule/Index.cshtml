@@ -46,11 +46,11 @@
         {
           @foreach(var day in Model.Days.OrderBy(o => o.Position))
             {
-                <table class="day table">
+                <table class="day table" data-id="@day.Id">
                     <tr class="table__title">
                         <td class="table__col" colspan="2">
                             <div class="table__editable-field editable-field">@day.Title</div>
-                            <ion-icon class="btn-icon table__trash" name="trash-sharp" data-delete-id="@day.Id"></ion-icon>
+                            <ion-icon class="btn-icon table__trash" name="trash-sharp"></ion-icon>
                         </td>
                     </tr>
 
@@ -200,6 +200,7 @@
         $(".days__add-btn").click(addDay);
         $("body").on("click", ".table__trash", removeDay);
         new EditableField($(".main__editable-field"), changeScheduleTitle);
+        new EditableField($(".table__editable-field"), changeDayTitle);
 
         function copyLink() {
             navigator.clipboard.writeText($(".share__link").text())
@@ -213,17 +214,25 @@
         }
 
         function addDay() {
-            let newDay = new DayManager().create("@Model.Id");
-            new DayRenderer().render($(".days__inner"), newDay);
+            let response = new DayManager().create("@Model.Id");
+            let day = response.content;
+            new DayRenderer().render($(".days__inner"), day);
         }
 
         function removeDay() {
-            let response = new DayManager().remove($(this).attr("data-delete-id"));
+            let $day = $(this).parent().parent().parent().parent();
+            let response = new DayManager().remove($day.attr("data-id"));
 
-            if (response.statusCode == 200)
-                $(this).parent().parent().parent().parent().remove();
+            if (response.successfully == true)
+                $day.remove();
             else 
                 alert("помилка видалення!");
+        }
+
+        function changeDayTitle() {
+            let $day = $(this).parent().parent().parent().parent();
+            let title = $(this).text();
+            new DayManager().changeTitle($day.attr("data-id"), title);
         }
     </script>
 }

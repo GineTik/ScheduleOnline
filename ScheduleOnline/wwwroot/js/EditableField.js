@@ -1,8 +1,7 @@
 ﻿export default class EditableField {
     constructor($field, callback) {
         this.setField($field);
-        this.setUnfocusCallback(callback);
-        this.setEvents();
+        this.setEvents(callback);
     }
 
     setField($field) {
@@ -10,17 +9,13 @@
         this.$field.attr("contentEditable", "true");
     }
 
-    setEvents() {
-        this.$field.blur(this.callback);
-        this.$field.keydown((e) => {
+    setEvents(callback) {
+        this.$field.blur(callback);
+        this.$field.keydown(function(e) {
             if (e.keyCode === 13) {
                 e.preventDefault();
-                this.$field.blur();
+                $(this).blur();
             }
         });
-    }
-
-    setUnfocusCallback(callback) {
-        this.callback = callback;
     }
 }

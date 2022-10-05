@@ -6,10 +6,10 @@ export default class UserManager {
     }
 
     find(email) {
-        if (email != "") {
-            window.location.href = "/Admin/Find?email=" + email;
-        } else {
+        if (email == "") {
             this.resetFind();
+        } else {
+            window.location.href = "/Admin/Find?email=" + email;
         }
     }
 

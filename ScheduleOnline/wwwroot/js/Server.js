@@ -1,13 +1,13 @@
 ﻿export default class Server {
     static get(url, data) {
-        return Server.send(url, data, "GET");
+        return Server.call(url, data, "GET");
     }
 
     static post(url, data) {
-        return Server.send(url, data, "POST");
+        return Server.call(url, data, "POST");
     }
 
-    static send(url, data, type) {
+    static call(url, data, type) {
         let result = null;
         $.ajax({
             type: type,
